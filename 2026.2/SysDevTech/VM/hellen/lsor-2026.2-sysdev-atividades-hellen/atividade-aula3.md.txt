@@ -1,0 +1,35 @@
+# Atividade Aula 03: Interfaces e Endereçamento de Rede
+
+## 1. Inspeção de Interfaces e Rotas
+Comandos utilizados para mapear a configuração atual do Guest:
+
+```bash
+# Exibir todas as interfaces de rede e endereços IP
+ip addr
+
+# Verificar o estado operacional dos links (UP/DOWN)
+ip link
+
+# Exibir a tabela de roteamento IP atual
+ip route
+```
+
+## 2. Testes de Conectividade em Camadas
+Diagnóstico de conectividade fim-a-fim utilizando comandos de ICMP e rastreamento de saltos:
+
+```bash
+# Teste de conectividade básico (Camada 3)
+ping -c 4 google.com
+
+# Rastreamento de rota para identificar os saltos até o destino
+traceroute google.com
+```
+
+## 3. Comparação de Modos de Rede (VirtualBox)
+
+| Critério | Modo NAT | Modo Placa em Ponte (Bridge) |
+| :--- | :--- | :--- |
+| **Isolamento** | A VM fica atrás de um roteador virtual criado pelo VirtualBox. | A VM se comporta como um host físico real na rede do laboratório. |
+| **Endereço IP** | Recebe um IP privado interno (geralmente `10.0.2.x`). | Recebe um IP da mesma subrede do host (IFAL / Laboratório). |
+| **Acesso Externo** | A VM acessa a internet através do host via NAT. | A VM acessa a internet diretamente pelo roteador da rede física. |
+| **Acesso Host -> Guest** | Bloqueado por padrão (requer Redirecionamento de Portas). | Direto (basta pingar/conectar no IP atribuído à VM). |

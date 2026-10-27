@@ -1,0 +1,32 @@
+# Atividade Aula 01: Instalação e Configuração Básica do Ubuntu Server
+
+## 1. Criação e Configuração da VM
+* **Nome da VM:** `LSOR-2026.2-[hellen
+]`
+* **Tipo/Versão:** Linux / Ubuntu (64-bit)
+* **Armazenamento:** VDI alocado dinamicamente com limite de 32 GB.
+
+## 2. Esquema de Particionamento LVM Realizado
+Durante a instalação do Ubuntu Server, a opção de particionamento customizado foi selecionada para refletir o seguinte mapa de blocos:
+
+| Ponto de Montagem | Tamanho Proposto | Tipo de Sistema de Arquivos / Papel |
+| :--- | :--- | :--- |
+| `/boot` | 1 GB | ext4 (Partição de Inicialização) |
+| `/` | 29 GB | ext4 (Volume Lógico Raiz - LVM) |
+| `SWAP` | 2 GB | swap (Volume Lógico de Troca - LVM) |
+
+### Comando de validação do LVM pós-boot:
+```bash
+sudo lsblk
+sudo lvs
+```
+
+## 3. Pós-Instalação e Conectividade Básica
+Comandos executados para atualizar a lista de pacotes e validar a saída para a internet:
+```bash
+# Atualização dos repositórios
+sudo apt-get update
+
+# Teste de resolução de nomes e ICMP
+ping -c 4 8.8.8.8
+```

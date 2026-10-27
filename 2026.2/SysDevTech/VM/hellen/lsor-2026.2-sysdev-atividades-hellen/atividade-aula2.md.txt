@@ -1,0 +1,37 @@
+# Atividade Aula 02: Administração de Usuários, Grupos e Permissões
+
+## 1. Gerenciamento de Contas e Grupos
+Comandos utilizados para a criação da estrutura de departamentos solicitada:
+
+```bash
+# Criação do grupo de trabalho
+sudo groupadd dev_group
+
+# Criação de usuários sem shell de login (exemplo para serviços/compartilhados) ou padrão
+sudo adduser dev_user1
+sudo adduser dev_user2
+
+# Inclusão dos usuários no grupo
+sudo usermod -aG dev_group dev_user1
+sudo usermod -aG dev_group dev_user2
+```
+
+## 2. Controle de Acesso e Isolamento de Diretórios
+Configuração de um diretório compartilhado onde apenas membros do grupo `dev_group` possuem permissão de escrita e leitura, isolando outros usuários:
+
+```bash
+# Criação do diretório compartilhado
+sudo mkdir /mnt/shared_dev
+
+# Alteração do grupo dono do diretório
+sudo chown :dev_group /mnt/shared_dev
+
+# Ajuste fino de permissões (Dono: rwx, Grupo: rwx, Outros: nenhum)
+sudo chmod 770 /mnt/shared_dev
+```
+
+### Validação das Permissões:
+```bash
+ls -ld /mnt/shared_dev
+# Saída esperada: drwxrwx--- 2 root dev_group ...
+```
